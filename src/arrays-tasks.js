@@ -324,8 +324,8 @@ function selectMany(arr, childrenSelector) {
  *   calculateBalance([ [ 10, 8 ], [ 1, 5 ] ])  => (10 - 8) + (1 - 5) = 2 + -4 = -2
  *   calculateBalance([]) => 0
  */
-function calculateBalance(/* arr */) {
-  throw new Error('Not implemented');
+function calculateBalance(arr) {
+  return arr.reduce((acc, curr) => acc[0] - acc[1] + (curr[0] - curr[1]));
 }
 
 /**
@@ -340,8 +340,14 @@ function calculateBalance(/* arr */) {
  *    createChunks(['a', 'b', 'c', 'd', 'e'], 2) => [['a', 'b'], ['c', 'd'], ['e']]
  *    createChunks([10, 20, 30, 40, 50], 1) => [[10], [20], [30], [40], [50]]
  */
-function createChunks(/* arr, chunkSize */) {
-  throw new Error('Not implemented');
+function createChunks(arr, chunkSize) {
+  function divideArray(array) {
+    if (array.length <= chunkSize) {
+      return [array];
+    }
+    return [array.slice(0, chunkSize), ...divideArray(array.slice(chunkSize))];
+  }
+  return divideArray(arr);
 }
 
 /**
@@ -447,8 +453,15 @@ function getIdentityMatrix(n) {
  *    getIndicesOfOddNumbers([2, 4, 6, 8, 10]) => []
  *    getIndicesOfOddNumbers([11, 22, 33, 44, 55]) => [0, 2, 4]
  */
-function getIndicesOfOddNumbers(/* numbers */) {
-  throw new Error('Not implemented');
+function getIndicesOfOddNumbers(numbers) {
+  const indexes = [];
+  numbers.map((item, i) => {
+    if (item % 2 !== 0) {
+      indexes.push(i);
+    }
+    return true;
+  });
+  return indexes;
 }
 
 /**
@@ -461,8 +474,13 @@ function getIndicesOfOddNumbers(/* numbers */) {
  *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
  *    getHexRGBValues([]) => []
  */
-function getHexRGBValues(/* arr */) {
-  throw new Error('Not implemented');
+function getHexRGBValues(arr) {
+  const newArr = arr.map((item) => {
+    let hexValue = item.toString(16);
+    hexValue = hexValue.padStart(6, '0');
+    return `#${hexValue.toUpperCase()}`;
+  });
+  return newArr;
 }
 
 /**
@@ -577,8 +595,15 @@ function propagateItemsByPositionIndex(arr) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, name) {
+  const tail = arr.slice(-name);
+  let head;
+  if (name > 0) {
+    head = arr.slice(0, arr.length - name);
+  } else {
+    head = arr.slice(0, -name);
+  }
+  return [...tail, ...head];
 }
 
 /**
